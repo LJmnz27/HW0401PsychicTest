@@ -26,8 +26,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class ChoiceFragment extends Fragment {
-    private static final int NUM_OF_CHOICES = 4;
+    private ChoiceNavigator navigator;
 
+    private static final int NUM_OF_CHOICES = 4;
     private static final String TAG = ChoiceFragment.class.getSimpleName();
     private static final String BUNDLE_TAG = "choiceFragmentBundle";
 
@@ -35,8 +36,6 @@ public class ChoiceFragment extends Fragment {
     private final ImageView[] imageViews = new ImageView[NUM_OF_CHOICES];
 
     private final int correctChoice = randomizer.getCorrectChoice(NUM_OF_CHOICES);
-
-    private ChoiceNavigator navigator;
 
     @NonNull
     public static ChoiceFragment newInstance(@NonNull String selectedBreed) {
@@ -97,7 +96,7 @@ public class ChoiceFragment extends Fragment {
         imageViews[2] = view.findViewById(R.id.fragment_choice_image_3);
         imageViews[3] = view.findViewById(R.id.fragment_choice_image_4);
 
-        View.OnClickListener onClickListener = new View.OnClickListener() {
+        final View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final String viewTag = v.getTag().toString();

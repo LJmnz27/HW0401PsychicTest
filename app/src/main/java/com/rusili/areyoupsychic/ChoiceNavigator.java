@@ -7,4 +7,6 @@ public interface ChoiceNavigator {
     void toChoiceFragment(@NonNull String selectedBreed);
 
     void toResultFragment(boolean guess);
+
+    void reset();
 }

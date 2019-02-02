@@ -16,20 +16,25 @@ public class MainActivity extends AppCompatActivity implements ChoiceNavigator {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Fragment mainFragment = MainFragment.newInstance();
-        inflateFragment(mainFragment);
+        reset();
     }
 
     @Override
     public void toChoiceFragment(@NonNull String selectedBreed) {
-        Fragment choiceFragment = ChoiceFragment.newInstance(selectedBreed);
+        final Fragment choiceFragment = ChoiceFragment.newInstance(selectedBreed);
         inflateFragment(choiceFragment);
     }
 
     @Override
     public void toResultFragment(boolean guess) {
-        Fragment resultFragment = ResultFragment.newInstance(guess);
+        final Fragment resultFragment = ResultFragment.newInstance(guess);
         inflateFragment(resultFragment);
+    }
+
+    @Override
+    public void reset() {
+        final Fragment mainFragment = MainFragment.newInstance();
+        inflateFragment(mainFragment);
     }
 
     private void inflateFragment(@NonNull Fragment fragment) {
