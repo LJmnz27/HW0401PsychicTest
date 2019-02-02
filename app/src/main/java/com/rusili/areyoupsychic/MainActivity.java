@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.rusili.areyoupsychic.ui.ChoiceFragment;
 import com.rusili.areyoupsychic.ui.MainFragment;
+import com.rusili.areyoupsychic.ui.ResultFragment;
 
 public class MainActivity extends AppCompatActivity implements ChoiceNavigator {
 
@@ -25,10 +26,15 @@ public class MainActivity extends AppCompatActivity implements ChoiceNavigator {
         inflateFragment(choiceFragment);
     }
 
+    @Override
+    public void toResultFragment(boolean guess) {
+        Fragment resultFragment = ResultFragment.newInstance(guess);
+        inflateFragment(resultFragment);
+    }
+
     private void inflateFragment(@NonNull Fragment fragment) {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.activity_main_fragment_container, fragment)
-                .addToBackStack(fragment.getTag())
                 .commit();
     }
 }

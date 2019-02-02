@@ -3,5 +3,8 @@
 
     <string name="button_select">select</string>
     <string name="error_oops">Oops! An error occured!</string>
+    <string name="button_play_again">Play again</string>
+    <string name="result_correct">Correct!</string>
+    <string name="result_incorrect">Incorrect!</string>
 
 </resources>

@@ -1,5 +1,6 @@
 package com.rusili.areyoupsychic.ui;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.rusili.areyoupsychic.ChoiceNavigator;
 import com.rusili.areyoupsychic.R;
 import com.rusili.areyoupsychic.network.DogApi;
 import com.rusili.areyoupsychic.network.DogRetrofit;
@@ -34,6 +36,8 @@ public class ChoiceFragment extends Fragment {
 
     private final int correctChoice = randomizer.getCorrectChoice(NUM_OF_CHOICES);
 
+    private ChoiceNavigator navigator;
+
     @NonNull
     public static ChoiceFragment newInstance(@NonNull String selectedBreed) {
         final ChoiceFragment choiceFragment = new ChoiceFragment();
@@ -43,6 +47,12 @@ public class ChoiceFragment extends Fragment {
 
         choiceFragment.setArguments(bundle);
         return choiceFragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        navigator = (ChoiceNavigator) context;
     }
 
     @Override
@@ -90,8 +100,19 @@ public class ChoiceFragment extends Fragment {
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final String viewTag = v.getTag().toString();
+
+                if (viewTag.equals(String.valueOf(correctChoice))) {
+                    navigator.toResultFragment(true);
+                } else {
+                    navigator.toResultFragment(false);
+                }
             }
         };
+
+        for (int i = 0; i < NUM_OF_CHOICES; i++) {
+            imageViews[i].setOnClickListener(onClickListener);
+        }
     }
 
     private void handleResponse(@NonNull Response<DogResponse> response) {
@@ -107,7 +128,7 @@ public class ChoiceFragment extends Fragment {
         for (int i = 0; i < NUM_OF_CHOICES; i++) {
             Picasso.get().load(fourUrls[i])
                     .fit().centerCrop()
-                    .error(R.drawable.ic_error_outline_black_24dp)
+                    .error(R.drawable.ic_error)
                     .into(imageViews[i]);
         }
     }
