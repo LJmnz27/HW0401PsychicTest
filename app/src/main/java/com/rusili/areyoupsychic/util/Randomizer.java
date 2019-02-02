@@ -2,9 +2,6 @@ package com.rusili.areyoupsychic.util;
 
 import android.support.annotation.NonNull;
 
-import com.rusili.areyoupsychic.ui.ChoiceFragment;
-
-import java.util.Arrays;
 import java.util.Random;
 
 public class Randomizer {

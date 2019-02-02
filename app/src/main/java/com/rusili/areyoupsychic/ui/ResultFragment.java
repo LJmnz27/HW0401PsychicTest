@@ -5,25 +5,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.rusili.areyoupsychic.ChoiceNavigator;
 import com.rusili.areyoupsychic.R;
-import com.rusili.areyoupsychic.network.DogApi;
-import com.rusili.areyoupsychic.network.DogRetrofit;
-import com.rusili.areyoupsychic.network.model.DogResponse;
-import com.rusili.areyoupsychic.util.Randomizer;
-import com.squareup.picasso.Picasso;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class ResultFragment extends Fragment {
     private ChoiceNavigator navigator;

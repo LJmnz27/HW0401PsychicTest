@@ -1,9 +1,9 @@
 package com.rusili.areyoupsychic;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import com.rusili.areyoupsychic.ui.ChoiceFragment;
 import com.rusili.areyoupsychic.ui.MainFragment;
