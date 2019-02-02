@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AreYouPsychic</string>
+
+    <string name="button_select">select</string>
+    <string name="error_oops">Oops! An error occured!</string>
+
+</resources>

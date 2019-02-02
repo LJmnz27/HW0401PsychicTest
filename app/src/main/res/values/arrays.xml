@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="categories">
+        <item>corgi</item>
+        <item>husky</item>
+        <item>samoyed</item>
+        <item>shiba</item>
+    </string-array>
+
+</resources>
