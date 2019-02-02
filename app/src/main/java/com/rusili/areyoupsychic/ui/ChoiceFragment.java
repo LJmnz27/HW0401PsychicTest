@@ -15,9 +15,8 @@ import com.rusili.areyoupsychic.R;
 import com.rusili.areyoupsychic.network.DogApi;
 import com.rusili.areyoupsychic.network.DogRetrofit;
 import com.rusili.areyoupsychic.network.model.DogResponse;
+import com.rusili.areyoupsychic.util.Randomizer;
 import com.squareup.picasso.Picasso;
-
-import java.util.Arrays;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,10 +24,15 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class ChoiceFragment extends Fragment {
+    private static final int NUM_OF_CHOICES = 4;
+
     private static final String TAG = ChoiceFragment.class.getSimpleName();
     private static final String BUNDLE_TAG = "choiceFragmentBundle";
 
-    private final ImageView[] imageViews = new ImageView[4];
+    private final Randomizer randomizer = new Randomizer();
+    private final ImageView[] imageViews = new ImageView[NUM_OF_CHOICES];
+
+    private final int correctChoice = randomizer.getCorrectChoice(NUM_OF_CHOICES);
 
     @NonNull
     public static ChoiceFragment newInstance(@NonNull String selectedBreed) {
@@ -82,20 +86,26 @@ public class ChoiceFragment extends Fragment {
         imageViews[1] = view.findViewById(R.id.fragment_choice_image_2);
         imageViews[2] = view.findViewById(R.id.fragment_choice_image_3);
         imageViews[3] = view.findViewById(R.id.fragment_choice_image_4);
+
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        };
     }
 
     private void handleResponse(@NonNull Response<DogResponse> response) {
         if (response.body() != null) {
             final DogResponse dogUrls = response.body();
-            final String[] breedUrls = Arrays.copyOfRange(dogUrls.getBreedUrls(), 0, 4);
 
-            displayDogs(breedUrls);
+            final String[] fourUrls = randomizer.getFourChoices(dogUrls.getBreedUrls(), NUM_OF_CHOICES);
+            displayDogs(fourUrls);
         }
     }
 
-    private void displayDogs(@NonNull String[] breedUrls) {
-        for (int i = 0; i < 4; i++) {
-            Picasso.get().load(breedUrls[i])
+    private void displayDogs(@NonNull String[] fourUrls) {
+        for (int i = 0; i < NUM_OF_CHOICES; i++) {
+            Picasso.get().load(fourUrls[i])
                     .fit().centerCrop()
                     .error(R.drawable.ic_error_outline_black_24dp)
                     .into(imageViews[i]);

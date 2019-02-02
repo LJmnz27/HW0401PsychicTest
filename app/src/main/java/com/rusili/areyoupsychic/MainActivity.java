@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements ChoiceNavigator {
     private void inflateFragment(@NonNull Fragment fragment) {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.activity_main_fragment_container, fragment)
+                .addToBackStack(fragment.getTag())
                 .commit();
     }
 }
