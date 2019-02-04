@@ -14,5 +14,5 @@ public interface DogApi {
     String SPECIFIC_BREED_IMAGES = "api/breed/{breed}/images";
 
     @GET(SPECIFIC_BREED_IMAGES)
-    Call<DogResponse> getBreedImages(@Path("breed") String breed);
+    Call<DogResponse> getBreedImages(@Path("breed") final String breed);
 }
