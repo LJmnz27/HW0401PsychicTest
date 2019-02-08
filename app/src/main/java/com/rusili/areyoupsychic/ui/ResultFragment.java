@@ -8,16 +8,27 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rusili.areyoupsychic.ChoiceNavigator;
 import com.rusili.areyoupsychic.R;
+import com.rusili.areyoupsychic.db.SQLiteGuessHelper;
+import com.rusili.areyoupsychic.db.model.Guess;
+import com.rusili.areyoupsychic.util.GuessCalculator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ResultFragment extends Fragment {
     private ChoiceNavigator navigator;
+    private SQLiteGuessHelper databaseHelper;
+    private final GuessCalculator guessCalculator = new GuessCalculator();
 
+    private static final String DEFAULT_USER = "default_user";
     private static final String BUNDLE_TAG = "resultFragmentBundle";
 
+    private final List<Guess> guessList = new ArrayList<>();
     private boolean guess;
 
     @NonNull
@@ -35,6 +46,7 @@ public class ResultFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         navigator = (ChoiceNavigator) context;
+        databaseHelper = new SQLiteGuessHelper(context);
     }
 
     @Override
@@ -47,6 +59,8 @@ public class ResultFragment extends Fragment {
         }
 
         guess = getArguments().getBoolean(BUNDLE_TAG);
+        databaseHelper.saveGuess(new Guess(DEFAULT_USER, guess));
+        guessList.addAll(databaseHelper.getAllGuesses());
     }
 
     @Nullable
@@ -64,11 +78,19 @@ public class ResultFragment extends Fragment {
     }
 
     private void setViews(@NonNull View view) {
+        showGuessHistory(view);
+
         if (guess) {
             showCorrect(view);
         } else {
             showIncorrect(view);
         }
+    }
+
+    private void showGuessHistory(@NonNull View view) {
+        final double percent = guessCalculator.getPercentCorrect(guessList);
+
+        ((TextView) view.findViewById(R.id.fragment_result_text_history)).setText(String.format("Are you psychic? %s%%", percent));
     }
 
     private void setOnClickListeners(@NonNull View view) {

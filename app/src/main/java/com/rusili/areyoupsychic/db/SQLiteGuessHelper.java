@@ -27,7 +27,7 @@ public class SQLiteGuessHelper extends SQLiteOpenHelper {
         db.execSQL(
                 "CREATE TABLE " + TABLE_NAME +
                         " (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                        + "user TEXT, category TEXT, correct INTEGER);"
+                        + "user TEXT, correct INTEGER);"
         );
     }
 
@@ -43,7 +43,6 @@ public class SQLiteGuessHelper extends SQLiteOpenHelper {
 
         final ContentValues values = new ContentValues();
         values.put(Guess.USER_KEY, guess.getUser());
-        values.put(Guess.CATEGORY_KEY, guess.getCategory());
         values.put(Guess.CORRECT_KEY, guess.isCorrect());
 
         final long id = database.insert(SQLiteGuessHelper.TABLE_NAME, null, values);
@@ -63,11 +62,10 @@ public class SQLiteGuessHelper extends SQLiteOpenHelper {
             if (cursor.moveToFirst()) {
                 do {
                     final String user = cursor.getString(cursor.getColumnIndex(Guess.USER_KEY));
-                    final String category = cursor.getString(cursor.getColumnIndex(Guess.CATEGORY_KEY));
                     final int correctInt = cursor.getInt(cursor.getColumnIndex(Guess.CORRECT_KEY));
                     final boolean correct = (correctInt == 1);
 
-                    final Guess guess = new Guess(user, category, correct);
+                    final Guess guess = new Guess(user, correct);
                     guessList.add(guess);
                 } while (cursor.moveToNext());
             }

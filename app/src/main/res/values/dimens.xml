@@ -5,4 +5,6 @@
     <dimen name="result_text_margin_top">64dp</dimen>
     <dimen name="result_textsize">30sp</dimen>
     <dimen name="result_image_size">300dp</dimen>
+    <dimen name="result_percent_textsize">24sp</dimen>
+    <dimen name="result_percent_text_margin_top">112dp</dimen>
 </resources>
